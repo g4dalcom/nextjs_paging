@@ -13,8 +13,7 @@ const PaginationComponent = ({
   limit,
   setPage,
 }: PaginationProps) => {
-  const MAX_PAGENATOR = 5;
-  console.log('p =', page);
+  const pageNum = Math.ceil(total / limit);
 
   return (
     <section className="mt-8">
@@ -27,12 +26,14 @@ const PaginationComponent = ({
         >
           &lt;
         </button>
-        {Array(MAX_PAGENATOR)
+        {Array(pageNum)
           .fill(0)
           .map((_, i) => (
             <button
               key={i + 1}
-              onClick={() => setPage(i + 1)}
+              onClick={() => {
+                setPage(i + 1);
+              }}
               aria-current={page === i + 1 && 'page'}
             >
               {i + 1}
@@ -42,7 +43,7 @@ const PaginationComponent = ({
           onClick={() => {
             setPage(page + 1);
           }}
-          disabled={page === MAX_PAGENATOR}
+          disabled={page === pageNum}
         >
           &gt;
         </button>
