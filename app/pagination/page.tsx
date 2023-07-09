@@ -1,31 +1,46 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import PokeList from '../components/PokeList';
 import PaginationComponent from '../components/PaginationComponent';
 
-interface PokeType {
+export interface PokeType {
   name: string;
   url: string;
 }
 
-interface APIProps {
+export interface APIProps {
   count: number;
   next: string;
   previous: string;
   results: PokeType[];
 }
 
-interface PaginationProps {}
-
-const Pagination = ({}: PaginationProps) => {
+const Pagination = () => {
+  /**
+   * state: pokemon data list
+   * page: current page
+   * limit: The number of data to be displayed on one page
+   * offset: Size between start and end points
+   */
   const [pokemons, setPokemons] = useState<APIProps>();
-  const [page, setPage] = useState(10);
-  console.log(pokemons);
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const offset = (page - 1) * limit;
+  const total = 150;
 
   const getPokeList = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${page}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${page}`)
       .then((res) => res.json())
       .then((data) => setPokemons(data));
+  };
+
+  const pokeData = (data: APIProps | undefined) => {
+    if (data) {
+      const result = data.results.slice(offset, offset + limit);
+
+      return result;
+    }
   };
 
   useEffect(() => {
@@ -40,7 +55,13 @@ const Pagination = ({}: PaginationProps) => {
       <div className="text-xl w-screen text-center text-blue-600">
         포켓몬 도감!
       </div>
-      <PaginationComponent data={pokemons} />
+      <PokeList data={pokeData(pokemons)} />
+      <PaginationComponent
+        total={total}
+        page={page}
+        limit={limit}
+        setPage={setPage}
+      />
     </section>
   );
 };
