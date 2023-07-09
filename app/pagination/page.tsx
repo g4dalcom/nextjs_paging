@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import PaginationComponent from '../components/PaginationComponent';
 
 interface PokeType {
   name: string;
@@ -16,7 +17,7 @@ interface APIProps {
 
 interface PaginationProps {}
 
-const PaginationComponent = ({}: PaginationProps) => {
+const Pagination = ({}: PaginationProps) => {
   const [pokemons, setPokemons] = useState<APIProps>();
   const [page, setPage] = useState(10);
   console.log(pokemons);
@@ -33,18 +34,15 @@ const PaginationComponent = ({}: PaginationProps) => {
 
   return (
     <section>
-      <div>This is pagination page</div>
-      <div className="flex-col">
-        {pokemons?.results.map((e) => (
-          <>
-            <div className="text-xl pt-5" key={e.name}>
-              {e.name}
-            </div>
-          </>
-        ))}
+      <h2 className="text-3xl text-center text-orange-700 my-8">
+        This is pagination page
+      </h2>
+      <div className="text-xl w-screen text-center text-blue-600">
+        포켓몬 도감!
       </div>
+      <PaginationComponent data={pokemons} />
     </section>
   );
 };
 
-export default PaginationComponent;
+export default Pagination;
