@@ -28,16 +28,18 @@ const Pagination = () => {
    * state: pokemon data list
    * page: current page
    * limit: The number of data to be displayed on one page
-   * offset: Size between start and end points
+   * offset: Size between start and end points => fetchData.slice(offset, offset + limit)
    */
   const [fetchData, setFetchData] = useState<ItemsProps[]>([]);
   const [page, setPage] = useState(1);
 
-  const total = 50;
   const limit = 10;
+  const total = 50;
   const offset = (page - 1) * limit;
-  const APIkey =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAyNzgyNjYifQ.RJSMi2mJ4yMon_VwDCB2fxjp6ZD9Z7s9rk61Ld2hte1vyrMBg_4f7jpE3MGK5YtCgnWjGbUBBSCX9gsQdcyFTx8O23Nf8PK2AkYSgZrL_keV9Sl109MQ37x8EiA6gJbhhzPKcws4bNuD3--R1ow43gu2ougQp1B36M0f-to-XJ3Bi5nt5RjwNDZku1MDp8uZ-Zdk3QGFU1Gre7wNZpa68tti60JOV1Ci1XA_LYJ3iAle8v23_KbZgHDILLkEitvijUuBayVv-gSDifMh982yelB1SFRY9pJ3GDWrtmU_DhgZimcA5uRRES6C7NBC9-mTRcbfmF9s7h_-2GqH1TQHRw';
+  const APIkey = process.env.NEXT_PUBLIC_LOSTARK_API_KEY;
+
+  console.log('page = ', page);
+  console.log('data = ', fetchData);
 
   useEffect(() => {
     fetch(`https://developer-lostark.game.onstove.com/markets/items`, {
@@ -71,7 +73,7 @@ const Pagination = () => {
       <div className="text-xl w-screen text-center text-blue-600">
         LostArk Market!
       </div>
-      <DataList data={fetchData.slice(0, limit)} />
+      <DataList data={fetchData} />
       <PaginationComponent
         total={total}
         page={page}
