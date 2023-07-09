@@ -9,11 +9,12 @@ interface PaginationProps {
 
 const PaginationComponent = ({
   total,
-  limit,
   page,
+  limit,
   setPage,
 }: PaginationProps) => {
-  const naviSize = Math.ceil(total / limit);
+  const MAX_PAGENATOR = 5;
+  console.log('p =', page);
 
   return (
     <section className="mt-8">
@@ -26,7 +27,7 @@ const PaginationComponent = ({
         >
           &lt;
         </button>
-        {Array(naviSize)
+        {Array(MAX_PAGENATOR)
           .fill(0)
           .map((_, i) => (
             <button
@@ -41,7 +42,7 @@ const PaginationComponent = ({
           onClick={() => {
             setPage(page + 1);
           }}
-          disabled={page === naviSize}
+          disabled={page === MAX_PAGENATOR}
         >
           &gt;
         </button>

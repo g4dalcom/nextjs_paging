@@ -11,8 +11,8 @@ export interface PokeType {
 
 export interface APIProps {
   count: number;
-  next: string;
-  previous: string;
+  next?: string;
+  previous?: string;
   results: PokeType[];
 }
 
@@ -24,16 +24,19 @@ const Pagination = () => {
    * offset: Size between start and end points
    */
   const [pokemons, setPokemons] = useState<APIProps>();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const limit = 10;
   const offset = (page - 1) * limit;
-  const total = 150;
+  const total = 50;
+  const curOffset = limit * page + 1;
 
-  const getPokeList = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${page}`)
+  useEffect(() => {
+    fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${curOffset}`,
+    )
       .then((res) => res.json())
       .then((data) => setPokemons(data));
-  };
+  }, [page]);
 
   const pokeData = (data: APIProps | undefined) => {
     if (data) {
@@ -42,10 +45,6 @@ const Pagination = () => {
       return result;
     }
   };
-
-  useEffect(() => {
-    getPokeList();
-  }, []);
 
   return (
     <section>
