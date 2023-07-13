@@ -68,9 +68,9 @@ const Pagination = () => {
   return (
     <section>
       <h2 className="text-3xl text-center text-orange-700 my-8">
-        This is pagination page
+        pagination page
       </h2>
-      <div className="text-xl w-screen text-center text-blue-600">
+      <div className="text-xl w-screen text-center text-blue-600 mb-8">
         LostArk Market!
       </div>
       <DataList data={fetchData} />
