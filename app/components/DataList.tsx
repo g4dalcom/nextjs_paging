@@ -8,13 +8,11 @@ interface Props {
 const DataList = ({ data }: Props) => {
   return (
     <>
-      {data.map((e) => (
-        <>
-          <div key={e.Id} className="flex flex-col justify-center items-center">
-            <Image src={e.Icon} width={48} height={48} alt="item image"></Image>
-            <div className="text-l text-center  ">{e.Name}</div>
-          </div>
-        </>
+      {data?.map((e) => (
+        <div key={e.Id} className="flex flex-col justify-center items-center">
+          <Image src={e.Icon} width={48} height={48} alt="item image"></Image>
+          <div className="text-l text-center  ">{e.Name}</div>
+        </div>
       ))}
     </>
   );
