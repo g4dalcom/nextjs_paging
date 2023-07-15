@@ -4,25 +4,6 @@ import DataList from '../components/DataList';
 import PaginationComponent from '../components/PaginationComponent';
 import useFetch from '../hooks/useFetch';
 
-export interface ItemsProps {
-  Id: number;
-  Name: string;
-  Grade: string;
-  Icon: string;
-  BundleCount: number;
-  TradeRemainCount: number;
-  YDayAvgPrice: number;
-  RecentPrice: number;
-  CurrentMinPrice: number;
-}
-
-export interface FetchData {
-  PageNo: number;
-  PageSize: number;
-  TotalCount: number;
-  Items: ItemsProps[];
-}
-
 const Pagination = () => {
   /**
    * state: pokemon data list
@@ -32,7 +13,7 @@ const Pagination = () => {
    */
   const url = 'https://developer-lostark.game.onstove.com/markets/items';
 
-  const [fetchData, page, setPage] = useFetch(url);
+  const [fetchData, page, setPage] = useFetch(url, 'pagination');
 
   const limit = 10;
   const total = 50;
@@ -43,10 +24,7 @@ const Pagination = () => {
       <h2 className="text-3xl text-center text-orange-700 my-8">
         pagination page
       </h2>
-      <div className="text-xl w-screen text-center text-blue-600 mb-8">
-        LostArk Market!
-      </div>
-      <DataList data={fetchData} />
+      <DataList data={fetchData} usage={'pagination'} />
       <PaginationComponent
         total={total}
         page={page}

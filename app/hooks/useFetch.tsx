@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ItemsProps } from '../pagination/page';
+import { ItemsProps } from '../types/shared';
 
 type FetchReturnType = [
   data: ItemsProps[],
@@ -7,8 +7,8 @@ type FetchReturnType = [
   setPage: React.Dispatch<React.SetStateAction<number>>,
 ];
 
-const useFetch = (url: string): FetchReturnType => {
-  const [data, setData] = useState<ItemsProps[]>([]);
+const useFetch = (url: string, usage: string): FetchReturnType => {
+  const [fetchData, setFetchData] = useState<ItemsProps[]>([]);
   const [page, setPage] = useState(1);
   const APIkey = process.env.NEXT_PUBLIC_LOSTARK_API_KEY;
 
@@ -31,10 +31,14 @@ const useFetch = (url: string): FetchReturnType => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => setData(data?.Items));
+      .then((data) =>
+        usage === 'pagination'
+          ? setFetchData(data?.Items)
+          : setFetchData([...fetchData, ...data?.Items]),
+      );
   }, [page]);
 
-  return [data, page, setPage];
+  return [fetchData, page, setPage];
 };
 
 export default useFetch;
