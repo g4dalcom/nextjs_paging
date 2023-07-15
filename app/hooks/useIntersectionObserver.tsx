@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
-const useIntersectionObserver = (callback: any) => {
+const useIntersectionObserver = (callback: () => void) => {
   const [observeTarget, setObserveTarget] = useState(null);
 
   const observer = useRef<MutableRefObject<Element> | any>(null);
