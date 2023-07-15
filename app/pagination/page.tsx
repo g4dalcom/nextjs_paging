@@ -6,7 +6,7 @@ import useFetch from '../hooks/useFetch';
 
 const Pagination = () => {
   /**
-   * state: pokemon data list
+   * state: data list
    * page: current page
    * limit: The number of data to be displayed on one page
    * offset: Size between start and end points => fetchData.slice(offset, offset + limit)

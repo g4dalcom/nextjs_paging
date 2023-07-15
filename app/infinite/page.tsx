@@ -4,7 +4,6 @@ import { useState, useEffect, SetStateAction } from 'react';
 import DataList from '../components/DataList';
 import useFetch from '../hooks/useFetch';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-import { ItemsProps } from './../types/shared';
 
 const InfiniteScroll = () => {
   const url = 'https://developer-lostark.game.onstove.com/markets/items';
