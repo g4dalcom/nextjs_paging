@@ -34,7 +34,10 @@ const InfiniteScroll = () => {
         infinite scroll page
       </h2>
       <DataList data={fetchData} usage={'infinite'} />
-      <div ref={setObserveTarget} style={{ backgroundColor: 'blue' }} />
+      <div
+        ref={setObserveTarget}
+        style={{ backgroundColor: 'blue', padding: '10px' }}
+      />
     </section>
   );
 };
